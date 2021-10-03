@@ -19,10 +19,20 @@ export class UserService {
     return result;
   }
 
+  getUserById(id): any {
+    const user = result.find((data) => data.id == id);
+    if (!user) {
+      return 'user does not exist';
+    } else {
+      return user;
+    }
+  }
   createUser(body: UserCreateDto) {
     const isExist = result.find((res) => {
+      console.log(res.email, body.email);
       res.email === body.email;
     });
+    console.log('isExist ', isExist);
     if (isExist) {
       return isExist;
     } else {
@@ -37,5 +47,7 @@ export class UserService {
     (user.email = data.email), (user.name = data.name);
     user.surname = data.surname;
     user.password = data.password;
+    user.id = Math.floor(Math.random() * 60 + 1).toString();
+    result.push(user);
   }
 }
